@@ -23,7 +23,7 @@ void	sort_lst(t_list **list, t_flags *toggle, char *dir,
 		toggle->count = 0;
 		while (maillon && maillon->next)
 		{
-			if (cmp((char *)((maillon)->content),
+			if (cmp((char *)(maillon->content),
 				(char *)((maillon->next)->content), toggle, dir))
 			{
 				toggle->count = 1;

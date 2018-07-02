@@ -23,6 +23,8 @@ static void	ft_print_next_directory(t_list *search, char *dir, char **name_dir)
 		tmp = ft_strjoin(dir, "/");
 		*name_dir = ft_strjoin(tmp, search->content);
 	}
+	else
+		*name_dir = ft_strdup(search->content);
 	ft_putstr(*name_dir);
 	ft_putstr(":\n");
 	ft_memdel((void **)&tmp);
@@ -37,22 +39,27 @@ static int	ls_recurse_lst(t_list *search, t_flags *toggle, char *rep, int a)
 	char			*name_dir;
 
 	name_dir = NULL;
+	//printf("search = %s\n", search->content);
+	//printf("rep = %s\n", rep);
 	if ((item = item_amount_lst(search->content, rep, toggle)))
-	{
-		ft_memdel((void **)&name_dir);
 		return (1);
-	}
 	if (a)
 		ft_print_next_directory(search, rep, &name_dir);
+	//printf("passe1\n");
+	//printf("name_dir = %s\n", name_dir);
 	dir = opendir(name_dir);
 	lst_char = NULL;
 	while ((d = readdir(dir)))
-		ft_lstaddend(&lst_char, ft_lstnew(d->d_name,
-			sizeof((void *)d->d_name) * ft_strlen(d->d_name)));
-	ft_print(lst_char, toggle, name_dir);
+	{
+		if (d->d_name[0] != '.' || toggle->a == 1)
+			ft_lstaddend(&lst_char, ft_lstnew(d->d_name,
+				sizeof((void *)d->d_name) * ft_strlen(d->d_name)));
+	}
+	if (lst_char)
+		ft_print(&lst_char, toggle, name_dir);
 	closedir(dir);
 	ft_memdel((void **)&name_dir);
-	ft_lstdel(&lst_char, &ft_del_lst);
+	ft_lstdel(&lst_char, &ft_lstdelcontent);
 	return (0);
 }
 

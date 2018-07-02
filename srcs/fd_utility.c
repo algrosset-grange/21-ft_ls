@@ -60,8 +60,7 @@ void		grab_format_file(char *str, t_flags *toggle)
 	struct passwd	user;
 	struct group	group;
 
-	stat(str, &items);
-	if (!S_ISDIR(items.st_mode))
+	if (!stat(str, &items) && !S_ISDIR(items.st_mode))
 	{
 		user = *getpwuid(items.st_uid);
 		if (ft_strlen(user.pw_name) > (size_t)toggle->fuid)

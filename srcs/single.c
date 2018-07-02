@@ -12,18 +12,16 @@
 
 #include "ftls.h"
 
-void	ft_print(t_list *list, t_flags *toggle, char *dir)
+void	ft_print(t_list **list, t_flags *toggle, char *dir)
 {
 	if (toggle->t == 1)
-		sort_lst(&list, toggle, dir, &time_compare);
+		sort_lst(list, toggle, dir, &time_compare);
 	if (toggle->r == 1)
-		ft_lstreverse(&list);
+		ft_lstreverse(list);
 	if (toggle->l == 1)
-		print_long_lst(&list, toggle, dir);
+		print_long_lst(list, toggle, dir);
 	else
-		print_simple_lst(&list, toggle, dir);
-		printf("passe7\n");
-		sleep(10);
+		print_simple_lst(list, toggle, dir);
 }
 
 int		ls_single_lst(char *search, t_flags *toggle)
@@ -33,26 +31,25 @@ int		ls_single_lst(char *search, t_flags *toggle)
 	int				item;
 	t_list			*lst_char;
 
+	printf("passe\n");
 	if ((item = item_amount_lst(search, NULL, toggle)))
 		return (0);
+	printf("passe\n");
 	dir = opendir(search);
 	lst_char = NULL;
 	while ((d = readdir(dir)))
 		ft_lstaddend(&lst_char, ft_lstnew(d->d_name,
 			sizeof((void *)d->d_name) * ft_strlen(d->d_name)));
-	ft_print(lst_char, toggle, search);
-	printf("passe8\n");
-	sleep(5);
+	ft_print(&lst_char, toggle, search);
 	closedir(dir);
-	ft_lstdel(&lst_char, &ft_del_lst);
-	printf("passe9\n");
-	sleep(5);
+	ft_lstdel(&lst_char, &ft_lstdelcontent);
 	return (0);
 }
 
 int		parse_single_lst(char *flag, char *search)
 {
 	t_flags *toggle;
+
 	toggle = ft_memalloc(sizeof(t_flags));
 	if (flag[0] == '-')
 		if (check_flags(flag, toggle))

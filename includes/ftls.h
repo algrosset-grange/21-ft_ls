@@ -58,68 +58,16 @@ typedef struct			s_flags
 }						t_flags;
 
 /*
-** multi.c
-*/
-
-int						parse_multi_lst(char **av);
-
-/*
-** single.c
-*/
-int						ls_single_lst(char *str, t_flags *toggle);
-int						parse_single_lst(char *flag, char *search);
-void					ft_print(t_list *list, t_flags *toggle, char *dir);
-int						parse_single(char *flag, char *search);
-
-/*
-** printsort.c
-*/
-void					print_simple_lst(t_list **list, t_flags *toggle,
-	char *dir);
-void					print_long_lst(t_list **list, t_flags *toggle,
-	char *dir);
-
-/*
-** ft_print_multi.c
-*/
-
-void					ft_print_multi(t_list **search, t_flags *toggle,
-	char *dir);
-int						ft_print_recurse(t_list **search, t_flags *toggle,
-	char *dir);
-
-/*
-** utility.c
-*/
-int						item_amount_lst(char *str, char *way, t_flags *toggle);
-int						check_flags(char *str, t_flags *toggle);
-void					grab_format_long(char *str, char *dir, t_flags *toggle);
-void					ft_del_lst(void *content, size_t content_size);
-
-/*
-** printlong.c
-*/
-void					print_l(char *str, char *dir, t_flags *toggle);
-void					print_date_name(t_flags *toggle, char *str,
-	struct stat timer, char *file);
-
-/*
-** sort.c
-*/
-void					sort_lst(t_list **list, t_flags *toggle, char *dir,
-	int (*cmp)(char *content1, char *content2, t_flags *toggle, char *dir));
-
-/*
-** printlong_2.c
-*/
-void					print_l_f(char *str, char *file, t_flags *toggle);
-
-/*
 ** fd_sort.c
 */
 void					sort_file_dir(char **search, int exist,
 							t_flags *toggle);
 void					sort_file_dir_lst(t_list **search, t_flags *toggle);
+
+/*
+** fd_utility_2.c
+*/
+void					file_dir_reverse_sort_lst(t_list **search);
 
 /*
 ** fd_utility.c
@@ -130,23 +78,76 @@ void					print_info_mode(char *str, char *dir,
 	t_flags *toggle);
 
 /*
-** fd_utility_2.c
+** ft_print_multi.c
 */
-void					file_dir_reverse_sort_lst(t_list **search);
+void					ft_print_multi(t_list **search, t_flags *toggle,
+	char *dir);
+int						ft_print_recurse(t_list **search, t_flags *toggle,
+	char *dir);
+
+/*
+** multi.c
+*/
+
+int						parse_multi_lst(char **av);
+
+/*
+** permissions.c
+*/
+char					*perms(int mode);
 
 /*
 ** print_process.c
 */
-void					print_l_hub(char *str, char *dir, char *file,
-	t_flags *toggle);
+void					print_l_hub(char *str, char *dir, t_flags *toggle);
 int						time_compare(char *one, char *two, t_flags *toggle,
 	char *dir);
 void					suffix(char *path);
 void					print_spacing(t_flags *toggle, char *dir);
 
 /*
-** permissions.c
+** printlong_2.c
 */
-char					*perms(int mode);
+void					print_l_f(char *str, char *file, t_flags *toggle);
+
+/*
+** printlong.c
+*/
+void					print_l(char *str, char *dir, t_flags *toggle);
+void					print_date_name(t_flags *toggle, char *str,
+	struct stat timer, char *file);
+
+/*
+** printsort.c
+*/
+void					print_simple_lst(t_list **list, t_flags *toggle,
+	char *dir);
+void					print_long_lst(t_list **list, t_flags *toggle,
+	char *dir);
+
+/*
+** single.c
+*/
+int						ls_single_lst(char *str, t_flags *toggle);
+int						parse_single_lst(char *flag, char *search);
+void					ft_print(t_list **list, t_flags *toggle, char *dir);
+int						parse_single(char *flag, char *search);
+
+/*
+** sort.c
+*/
+void					sort_lst(t_list **list, t_flags *toggle, char *dir,
+	int (*cmp)(char *content1, char *content2, t_flags *toggle, char *dir));
+
+/*
+** utility_2.c
+*/
+int						item_amount_lst(char *str, char *way, t_flags *toggle);
+
+/*
+** utility.c
+*/
+int						check_flags(char *str, t_flags *toggle);
+void					grab_format_long(char *str, char *dir, t_flags *toggle);
 
 #endif

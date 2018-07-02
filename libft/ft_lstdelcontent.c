@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelcontent.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrosset <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/29 14:59:42 by agrosset          #+#    #+#             */
-/*   Updated: 2015/12/10 12:09:59 by agrosset         ###   ########.fr       */
+/*   Created: 2015/12/03 12:35:01 by agrosset          #+#    #+#             */
+/*   Updated: 2015/12/03 13:50:58 by agrosset         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_putstr(char const *s)
+void	ft_lstdelcontent(void *content, size_t size)
 {
-	if (s != NULL)
-		write(1, s, ft_strlen(s));
+	(void)size;
+	ft_memdel(&content);
 }

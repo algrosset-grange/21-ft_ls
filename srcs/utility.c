@@ -12,12 +12,6 @@
 
 #include "ftls.h"
 
-void		ft_del_lst(void *content, size_t content_size)
-{
-	(void)content_size;
-	ft_memdel(&content);
-}
-
 static void	ft_grab_format_p2(char *str, char *dir, char **file)
 {
 	char	*tmp;

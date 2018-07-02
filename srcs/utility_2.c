@@ -28,7 +28,7 @@ static void	ft_print_l_file(char *str, char *way, t_flags *toggle)
 	ft_lstaddend(&list, ft_lstnew(str,
 		sizeof((void *)str) * ft_strlen(str)));
 	print_long_lst(&list, toggle, way);
-	ft_lstdel(&list, &ft_del_lst);
+	ft_lstdel(&list, &ft_lstdelcontent);
 	ft_memdel((void **)&list);
 }
 

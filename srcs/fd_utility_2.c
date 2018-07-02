@@ -15,28 +15,50 @@
 static void	file_dir_reverse_sort_lst_p2(t_list **erreur, t_list **file,
 	t_list **dir)
 {
+	if (*erreur)
+	printf("(*erreur)->content = %s\n", (*erreur)->content);
+	if (*file)
+	printf("(*file)->content = %s\n", (*file)->content);
+	if (*dir)
+	printf("(*dir)->content = %s\n", (*dir)->content);
 	ft_lstreverse(file);
 	ft_lstreverse(dir);
 	ft_lstaddend(erreur, *file);
 	ft_lstaddend(erreur, *dir);
 }
 
-static void ft_get_error(t_list **erreur, t_list **search, t_list **tmp)
+static void	ft_get_error(t_list **erreur, t_list **search, t_list **tmp)
 {
 	struct stat	items;
 
-	if (*search && !stat(((*search)->content), &items) &&
+	if (*search && stat(((*search)->content), &items) &&
 		errno == ENOENT && (*erreur = *search))
 		*tmp = *erreur;
 	while (*tmp && (*tmp)->next &&
-		!stat((*tmp)->next->content, &items) && errno == ENOENT)
+		stat((*tmp)->next->content, &items) && errno == ENOENT)
 		*tmp = (*tmp)->next;
 }
 
+int	ft_cmp_reverse(char *file1, char *file2, t_flags *toggle, char *dir)
+{
+	struct stat	item1;
+	struct stat	item2;
+
+	()
+	if (file1 && file2 &&
+		!stat(file1, &item1) &&
+		!stat(file2, &item2) &&
+		ft_strcmp(file1, file2) < 0 &&
+		((!S_ISDIR(item1.st_mode) && !S_ISDIR(item2.st_mode)) ||
+		(S_ISDIR(item1.st_mode) && S_ISDIR(item2.st_mode))))
+		return (1);
+	return(0);
+}
 
 void		file_dir_reverse_sort_lst(t_list **search)
 {
-	struct stat	items;
+	ft_sort();
+	/*
 	t_list		*erreur;
 	t_list		*file;
 	t_list		*dir;
@@ -44,6 +66,7 @@ void		file_dir_reverse_sort_lst(t_list **search)
 
 	erreur = NULL;
 	tmp = *search;
+
 	ft_get_error(&erreur, search, &tmp);
 	file = NULL;
 	if (tmp && tmp->next && !stat(tmp->next->content, &items) &&
@@ -59,4 +82,5 @@ void		file_dir_reverse_sort_lst(t_list **search)
 	dir = tmp;
 	tmp->next = NULL;
 	file_dir_reverse_sort_lst_p2(&erreur, &file, &dir);
+	*/
 }

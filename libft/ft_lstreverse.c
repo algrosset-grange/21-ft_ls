@@ -15,7 +15,6 @@
 void	ft_lstreverse(t_list **alst)
 {
 	t_list	*tmp;
-	t_list	*next;
 	t_list	*reverse;
 
 	if (alst == NULL)
@@ -24,9 +23,10 @@ void	ft_lstreverse(t_list **alst)
 	tmp = *alst;
 	while (tmp != NULL)
 	{
-		next = tmp->next;
-		ft_lstadd(&reverse, tmp);
-		tmp = next;
+		ft_lstadd(&reverse, ft_lstnew(tmp->content, tmp->content_size));
+		tmp = tmp->next;
 	}
+	ft_lstdel(alst, &ft_lstdelcontent);
 	*alst = reverse;
+	tmp = *alst;
 }

@@ -106,7 +106,7 @@ void		print_l(char *str, char *dir, t_flags *toggle)
 
 	file = NULL;
 	set_file(str, dir, &file);
-	lstat(file, &items);
+	stat(file, &items);
 	user = *getpwuid(items.st_uid);
 	group = *getgrgid(items.st_gid);
 	print_l_p2(items, file, toggle, dir);

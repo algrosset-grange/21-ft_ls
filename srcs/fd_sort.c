@@ -99,4 +99,7 @@ void		sort_file_dir_lst(t_list **search, t_flags *toggle)
 		maillon = maillon->next;
 	}
 	sort_hub_lst(search, toggle);
+	maillon = *search;
+	printf("%s\n", maillon->content);
+	printf("%s\n", maillon->next->content);
 }

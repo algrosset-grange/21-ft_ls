@@ -12,10 +12,12 @@
 
 #include "ftls.h"
 
-void	print_l_hub(char *str, char *dir, char *file, t_flags *toggle)
+void	print_l_hub(char *str, char *dir, t_flags *toggle)
 {
 	struct stat		items;
+	char			*file;
 
+	file = NULL;
 	if (dir != NULL)
 		file = dir;
 	else
@@ -34,27 +36,26 @@ int		time_check(char *file1, char *file2, char *one, char *two)
 
 	lstat(file1, &mtime1);
 	lstat(file2, &mtime2);
-	ft_memdel((void **)&file1);
-	ft_memdel((void **)&file2);
-	if (mtime1.st_mtime > mtime2.st_mtime)
+	if (mtime1.st_mtime < mtime2.st_mtime)
+	{
 		return (-1);
+	}
 	if (mtime1.st_mtime == mtime2.st_mtime)
 	{
-		if (mtime1.st_mtimespec.tv_nsec > mtime2.st_mtimespec.tv_nsec)
-			return (-1);
+		if (mtime1.st_mtimespec.tv_nsec < mtime2.st_mtimespec.tv_nsec)
+			return (1);
 		else if (mtime1.st_mtimespec.tv_nsec == mtime2.st_mtimespec.tv_nsec)
-			return (ft_strcmp(two, one));
+			return (ft_strcmp(two, one) < 0);
 	}
 	return (0);
 }
 
 int		time_compare(char *one, char *two, t_flags *toggle, char *dir)
 {
-	struct stat		mtime1;
-	struct stat		mtime2;
 	char			*file1;
 	char			*file2;
 	char			*tmp;
+	int 			bol;
 
 	(void)toggle;
 	if (dir != NULL)
@@ -68,12 +69,13 @@ int		time_compare(char *one, char *two, t_flags *toggle, char *dir)
 	}
 	else
 	{
-		file1 = one;
-		file2 = two;
+		file1 = ft_strdup(one);
+		file2 = ft_strdup(two);
 	}
-	lstat(file1, &mtime1);
-	lstat(file2, &mtime2);
-	return (time_check(file1, file2, one, two));
+	bol = time_check(file1, file2, one, two);
+	ft_memdel((void **)&file1);
+	ft_memdel((void **)&file2);
+	return (bol);
 }
 
 void	suffix(char *path)

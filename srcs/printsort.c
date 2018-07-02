@@ -66,32 +66,25 @@ void		print_long_lst(t_list **list, t_flags *toggle, char *dir)
 	t_list	*maillon;
 	t_list	*lst_dir;
 
-	printf("passe1\n");
 	reset_data(toggle);
 	maillon = *list;
 	lst_dir = NULL;
 	while (maillon != NULL)
 		set_stuff_lst(&maillon, dir, toggle);
-	printf("passe2\n");
 	maillon = *list;
 	name_file = maillon->content;
 	print_info_mode(name_file, dir, toggle);
-	printf("passe3\n");
 	while (maillon != NULL)
 	{
 		name_file = maillon->content;
 		if (name_file[0] != '.' || toggle->a == 1)
-			print_l_hub(name_file, dir, NULL, toggle);
+			print_l_hub(name_file, dir, toggle);
 		if (toggle->re == 1)
 			ft_adddir(&lst_dir, name_file, dir);
 		maillon = maillon->next;
 	}
-	printf("passe4\n");
 	ft_print_recurse(&lst_dir, toggle, dir);
-	printf("passe5\n");
-	ft_lstdel(&lst_dir, &ft_del_lst);
-	printf("passe6\n");
-	sleep(5);
+	ft_lstdel(&lst_dir, &ft_lstdelcontent);
 }
 
 void		print_simple_lst(t_list **list, t_flags *toggle, char *dir)
@@ -99,9 +92,6 @@ void		print_simple_lst(t_list **list, t_flags *toggle, char *dir)
 	t_list	*maillon;
 	t_list	*lst_dir;
 	char	*name;
-
-	printf("passe\n");
-	sleep(5);
 
 	maillon = *list;
 	lst_dir = NULL;
@@ -117,5 +107,5 @@ void		print_simple_lst(t_list **list, t_flags *toggle, char *dir)
 		maillon = maillon->next;
 	}
 	ft_print_recurse(&lst_dir, toggle, dir);
-	ft_lstdel(&lst_dir, &ft_del_lst);
+	ft_lstdel(&lst_dir, &ft_lstdelcontent);
 }

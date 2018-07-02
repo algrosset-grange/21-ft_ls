@@ -43,6 +43,5 @@ int		main(int ac, char **av)
 	}
 	else
 		parse_multi_lst(av);
-	sleep(5);
 	return (0);
 }

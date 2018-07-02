@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "libft.h"
 
 static int		set_buf(int fd, char *tmp, char buf[256][BUFF_SIZE + 1])

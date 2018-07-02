@@ -42,6 +42,7 @@ int			parse_multi_lst(char **av)
 {
 	t_flags	*toggle;
 	t_list	*search;
+
 	toggle = ft_memalloc(sizeof(t_flags));
 	toggle->exist = 0;
 	search = NULL;
@@ -52,12 +53,14 @@ int			parse_multi_lst(char **av)
 			ft_lstnew(".", sizeof((void *)".") * ft_strlen(".")));
 		toggle->exist++;
 	}
-	sort_file_dir_lst(&search, toggle);
 	if (toggle->exist == 1)
 		ls_single_lst(search->content, toggle);
 	else
+	{
+		sort_file_dir_lst(&search, toggle);
 		ft_print_multi(&search, toggle, NULL);
-	ft_lstdel(&search, &ft_del_lst);
+	}
+	ft_lstdel(&search, &ft_lstdelcontent);
 	free(toggle);
 	return (0);
 }

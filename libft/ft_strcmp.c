@@ -23,6 +23,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 }
 
 /*
+**	s1 - s2 = X
 **	a - b = -1
 **	b - a = 1
 **	a - a = 0
