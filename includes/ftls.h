@@ -45,7 +45,9 @@ typedef struct			s_flags
 	int					uid;
 	int					gid;
 	unsigned long long	size;
-	unsigned long long	i;
+	unsigned long long	minor;
+	unsigned long long	major;
+	long long			i;
 	int					exist;
 	int					file;
 	int					fnlinks;
@@ -63,11 +65,6 @@ typedef struct			s_flags
 void					sort_file_dir(char **search, int exist,
 							t_flags *toggle);
 void					sort_file_dir_lst(t_list **search, t_flags *toggle);
-
-/*
-** fd_utility_2.c
-*/
-void					file_dir_reverse_sort_lst(t_list **search);
 
 /*
 ** fd_utility.c
@@ -100,7 +97,7 @@ char					*perms(int mode);
 ** print_process.c
 */
 void					print_l_hub(char *str, char *dir, t_flags *toggle);
-int						time_compare(char *one, char *two, t_flags *toggle,
+int						cmp_time(char *one, char *two, t_flags *toggle,
 	char *dir);
 void					suffix(char *path);
 void					print_spacing(t_flags *toggle, char *dir);
@@ -113,9 +110,15 @@ void					print_l_f(char *str, char *file, t_flags *toggle);
 /*
 ** printlong.c
 */
-void					print_l(char *str, char *dir, t_flags *toggle);
 void					print_date_name(t_flags *toggle, char *str,
 	struct stat timer, char *file);
+void					print_size_device(struct stat items, t_flags *toggle,
+	char *dir);
+
+/*
+** printlong.c
+*/
+void					print_l(char *str, char *dir, t_flags *toggle);
 
 /*
 ** printsort.c
@@ -138,6 +141,10 @@ int						parse_single(char *flag, char *search);
 */
 void					sort_lst(t_list **list, t_flags *toggle, char *dir,
 	int (*cmp)(char *content1, char *content2, t_flags *toggle, char *dir));
+int						cmp_str(char *one, char *two, t_flags *toggle,
+	char *dir);
+int						cmp_file_dir_time(char *one, char *two, t_flags *toggle,
+	char *dir);
 
 /*
 ** utility_2.c

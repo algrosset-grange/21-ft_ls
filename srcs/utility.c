@@ -12,19 +12,22 @@
 
 #include "ftls.h"
 
-static void	ft_grab_format_p2(char *str, char *dir, char **file)
+static void	ft_grab_format_p2(char *str, char *dir, struct stat *items)
 {
 	char	*tmp;
+	char	*file;
 
 	tmp = NULL;
 	if (dir != NULL)
 	{
 		tmp = ft_strjoin(dir, "/");
-		*file = ft_strjoin(tmp, str);
+		file = ft_strjoin(tmp, str);
 	}
 	else
-		*file = ft_strdup(str);
+		file = ft_strdup(str);
 	ft_memdel((void **)&tmp);
+	ft_memdel((void **)&file);
+	stat(file, items);
 }
 
 void		grab_format_long(char *str, char *dir, t_flags *toggle)
@@ -32,10 +35,8 @@ void		grab_format_long(char *str, char *dir, t_flags *toggle)
 	struct stat		items;
 	struct passwd	user;
 	struct group	group;
-	char			*file;
 
-	ft_grab_format_p2(str, dir, &file);
-	stat(file, &items);
+	ft_grab_format_p2(str, dir, &items);
 	if (!S_ISCHR(items.st_mode) && !S_ISBLK(items.st_mode))
 		toggle->blocks = toggle->blocks + items.st_blocks;
 	user = *getpwuid(items.st_uid);
@@ -44,11 +45,18 @@ void		grab_format_long(char *str, char *dir, t_flags *toggle)
 	group = *getgrgid(items.st_gid);
 	if ((long long)ft_strlen(group.gr_name) > (long long)toggle->gid)
 		toggle->gid = ft_strlen(group.gr_name);
-	if (ft_numullen(items.st_size) > toggle->size)
-		toggle->size = ft_numullen(items.st_size);
+	if (!S_ISCHR(items.st_mode) && !S_ISBLK(items.st_mode))
+		if (ft_numullen(items.st_size) > toggle->size)
+			toggle->size = ft_numullen(items.st_size);
+	if (S_ISCHR(items.st_mode) || S_ISBLK(items.st_mode))
+	{
+		if (ft_numulen(major(items.st_rdev)) > toggle->size)
+			toggle->major = ft_numullen(major(items.st_rdev));
+		if (ft_numulen(minor(items.st_rdev)) > toggle->size)
+			toggle->minor = ft_numullen(minor(items.st_rdev));
+	}
 	if ((long long)ft_numlen(items.st_nlink) > (long long)toggle->nlinks)
 		toggle->nlinks = ft_numlen(items.st_nlink);
-	ft_memdel((void **)&file);
 }
 
 int			check_flags(char *str, t_flags *toggle)

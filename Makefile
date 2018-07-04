@@ -16,11 +16,11 @@ SRCFOLDER= srcs/
 SRCFILES= \
 			fd_sort.c \
 			fd_utility.c \
-			fd_utility_2.c \
 			ft_print_multi.c \
 			main.c \
 			multi.c \
 			permissions.c \
+			print_l.c \
 			printlong.c \
 			printlong_2.c \
 			printsort.c \

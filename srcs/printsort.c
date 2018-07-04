@@ -20,6 +20,8 @@ static void	reset_data(t_flags *toggle)
 	toggle->uid = 0;
 	toggle->gid = 0;
 	toggle->size = 0;
+	toggle->minor = 0;
+	toggle->major = 0;
 	toggle->i = -1;
 }
 

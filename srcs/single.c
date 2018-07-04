@@ -15,9 +15,7 @@
 void	ft_print(t_list **list, t_flags *toggle, char *dir)
 {
 	if (toggle->t == 1)
-		sort_lst(list, toggle, dir, &time_compare);
-	if (toggle->r == 1)
-		ft_lstreverse(list);
+		sort_lst(list, toggle, dir, &cmp_time);
 	if (toggle->l == 1)
 		print_long_lst(list, toggle, dir);
 	else
@@ -31,10 +29,8 @@ int		ls_single_lst(char *search, t_flags *toggle)
 	int				item;
 	t_list			*lst_char;
 
-	printf("passe\n");
 	if ((item = item_amount_lst(search, NULL, toggle)))
 		return (0);
-	printf("passe\n");
 	dir = opendir(search);
 	lst_char = NULL;
 	while ((d = readdir(dir)))

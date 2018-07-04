@@ -12,12 +12,12 @@
 
 #include "ftls.h"
 
-static void	ft_print_next_directory(t_list *search, char *dir, char **name_dir)
+static void	ft_print_next_directory(t_list *search, char *dir, char **name_dir,
+	int a)
 {
 	char	*tmp;
 
 	tmp = NULL;
-	ft_putstr("\n");
 	if (dir != NULL && ft_strcmp(search->content, dir))
 	{
 		tmp = ft_strjoin(dir, "/");
@@ -25,8 +25,12 @@ static void	ft_print_next_directory(t_list *search, char *dir, char **name_dir)
 	}
 	else
 		*name_dir = ft_strdup(search->content);
-	ft_putstr(*name_dir);
-	ft_putstr(":\n");
+	if (a)
+	{
+		ft_putstr("\n");
+		ft_putstr(*name_dir);
+		ft_putstr(":\n");
+	}
 	ft_memdel((void **)&tmp);
 }
 
@@ -39,14 +43,9 @@ static int	ls_recurse_lst(t_list *search, t_flags *toggle, char *rep, int a)
 	char			*name_dir;
 
 	name_dir = NULL;
-	//printf("search = %s\n", search->content);
-	//printf("rep = %s\n", rep);
 	if ((item = item_amount_lst(search->content, rep, toggle)))
 		return (1);
-	if (a)
-		ft_print_next_directory(search, rep, &name_dir);
-	//printf("passe1\n");
-	//printf("name_dir = %s\n", name_dir);
+	ft_print_next_directory(search, rep, &name_dir, a);
 	dir = opendir(name_dir);
 	lst_char = NULL;
 	while ((d = readdir(dir)))

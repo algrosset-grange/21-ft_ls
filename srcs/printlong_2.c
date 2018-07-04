@@ -50,5 +50,7 @@ void		print_l_f(char *str, char *file, t_flags *toggle)
 	if ((toggle->i = (toggle->fnlinks - ft_numlen(items.st_nlink))) > 0)
 		print_spacing(toggle, str);
 	print_l_f_p2(items, toggle, user, str);
+	ft_putstr(" ");
+	print_size_device(items, toggle, ".");
 	print_date_name(toggle, str, items, file);
 }

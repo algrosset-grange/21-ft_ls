@@ -50,34 +50,6 @@ int		time_check(char *file1, char *file2, char *one, char *two)
 	return (0);
 }
 
-int		time_compare(char *one, char *two, t_flags *toggle, char *dir)
-{
-	char			*file1;
-	char			*file2;
-	char			*tmp;
-	int 			bol;
-
-	(void)toggle;
-	if (dir != NULL)
-	{
-		tmp = ft_strjoin(dir, "/");
-		file1 = ft_strjoin(tmp, one);
-		ft_memdel((void **)&tmp);
-		tmp = ft_strjoin(dir, "/");
-		file2 = ft_strjoin(tmp, two);
-		ft_memdel((void **)&tmp);
-	}
-	else
-	{
-		file1 = ft_strdup(one);
-		file2 = ft_strdup(two);
-	}
-	bol = time_check(file1, file2, one, two);
-	ft_memdel((void **)&file1);
-	ft_memdel((void **)&file2);
-	return (bol);
-}
-
 void	suffix(char *path)
 {
 	acl_t			acl;
