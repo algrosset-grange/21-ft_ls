@@ -70,7 +70,6 @@ void					sort_file_dir_lst(t_list **search, t_flags *toggle);
 ** fd_utility.c
 */
 void					grab_format_file(char *str, t_flags *toggle);
-int						mode_compare(int one, int two, t_flags *toggle);
 void					print_info_mode(char *str, char *dir,
 	t_flags *toggle);
 

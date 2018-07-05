@@ -12,6 +12,26 @@
 
 #include "ftls.h"
 
+static int	mode_compare(int one, int two, t_flags *toggle)
+{
+	int a;
+	int b;
+
+	a = 0;
+	b = 0;
+	if (S_ISREG(one))
+	{
+		toggle->file = 1;
+		a = 1;
+	}
+	if (S_ISREG(two))
+	{
+		toggle->file = 1;
+		b = 1;
+	}
+	return (a - b);
+}
+
 static int	file_dir_alpha_sort_lst(char *content1, char *content2,
 	t_flags *toggle, char *dir)
 {
@@ -48,7 +68,7 @@ static int	file_dir_sort_lst(char *content1, char *content2,
 			return (0);
 		return (1);
 	}
-	if (mode_compare(item1.st_mode, item2.st_mode, toggle) < 0)
+	if (mode_compare(item1.st_mode, item2.st_mode, toggle) > 0)
 		return (1);
 	return (0);
 }

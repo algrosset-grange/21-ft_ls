@@ -47,7 +47,7 @@ void		print_info_mode(char *str, char *dir, t_flags *toggle)
 		temp = ft_strjoin(dir, ":\n");
 		ft_putstr(temp);
 		ft_memdel((void **)&temp);
-		if (toggle->l == 1 && toggle->blocks > 0)
+		if (toggle->l == 1 && toggle->exist <= 1 && toggle->blocks > 0)
 			ft_print_info_mode_p2(toggle);
 	}
 	if (S_ISDIR(items.st_mode) && toggle->exist <= 1)
@@ -73,24 +73,4 @@ void		grab_format_file(char *str, t_flags *toggle)
 		if ((long long)ft_numlen(items.st_nlink) > (long long)toggle->fnlinks)
 			toggle->fnlinks = ft_numlen(items.st_nlink);
 	}
-}
-
-int			mode_compare(int one, int two, t_flags *toggle)
-{
-	int a;
-	int b;
-
-	a = 0;
-	b = 0;
-	if (S_ISREG(one))
-	{
-		toggle->file = 1;
-		a = 1;
-	}
-	if (S_ISREG(two))
-	{
-		toggle->file = 1;
-		b = 1;
-	}
-	return (a - b);
 }

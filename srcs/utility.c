@@ -26,6 +26,7 @@ static void	ft_grab_format_p2(char *str, char *dir, struct stat *items)
 	else
 		file = ft_strdup(str);
 	ft_memdel((void **)&tmp);
+	stat(file, items);
 	ft_memdel((void **)&file);
 	stat(file, items);
 }

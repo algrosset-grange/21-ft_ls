@@ -12,21 +12,6 @@
 
 #include "ftls.h"
 
-static void	set_file(char *str, char *dir, char **file)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (dir != NULL)
-	{
-		tmp = ft_strjoin(dir, "/");
-		*file = ft_strjoin(tmp, str);
-	}
-	else
-		*file = str;
-	ft_memdel((void **)&tmp);
-}
-
 static void	print_l_p2(struct stat items, char *file, t_flags *toggle,
 	char *dir)
 {
@@ -44,6 +29,21 @@ static void	print_l_p2(struct stat items, char *file, t_flags *toggle,
 	ft_memdel((void **)&temp);
 }
 
+static void	set_file(char *str, char *dir, char **file)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (dir != NULL)
+	{
+		tmp = ft_strjoin(dir, "/");
+		*file = ft_strjoin(tmp, str);
+	}
+	else
+		*file = str;
+	ft_memdel((void **)&tmp);
+}
+
 void		print_l(char *str, char *dir, t_flags *toggle)
 {
 	struct stat		items;
@@ -53,10 +53,10 @@ void		print_l(char *str, char *dir, t_flags *toggle)
 
 	file = NULL;
 	set_file(str, dir, &file);
-	stat(file, &items);
+	lstat(file, &items);
+	print_l_p2(items, file, toggle, dir);
 	user = *getpwuid(items.st_uid);
 	group = *getgrgid(items.st_gid);
-	print_l_p2(items, file, toggle, dir);
 	if ((toggle->i = (toggle->uid - ft_strlen(user.pw_name))) > 0)
 		print_spacing(toggle, dir);
 	ft_putstr(user.pw_name);
